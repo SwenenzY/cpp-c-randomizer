@@ -8,59 +8,69 @@ const char* extensions[] {
     ".cc", ".c", ".C", ".cpp", ".cxx", ".cp", ".c++",
     ".vcxproj", ".sln" };
 
+// Define voids();
+
+bool GetDocuments(std::string Path);
+
 //Main
 int main(int argc, char* argv[])
 {
-    SetConsoleTitleA(_xor_("Randomizer []").c_str());
+    SetConsoleTitleA(_xor_("Randomizer").c_str());
 
-    // Define Path
-    string NiggerPath = _xor_("C:\\Users\\ykaan\\Documents\\GitHub\\cpp-c-randomizer\\Example-Project\\").c_str();
+    if (GetDocuments(_xor_("C:\\Users\\ykaan\\Documents\\GitHub\\cpp-c-randomizer\\Example-Project\\").c_str())) {
+        //File List For.
+        for (const auto& File : FileList)
+        {
+            std::cout << File.FullName << std::endl;
+        } // exit for.
+    }
+    else {
+        // Print error and wait for user action.
+        std::cerr << "File has no members..." << std::endl;
+        system("pause");
+    }
+}
 
-    // Get files in path
-    for (const auto& entry : fs::directory_iterator(NiggerPath))
+
+bool GetDocuments(std::string path) {
+    // Get files in path.
+    for (const auto& entry : fs::directory_iterator(path))
     {
-        // Get String From Entry
+        // Get String From Entry.
         std::string CurrentPath = entry.path().string();
-        // Removing Directory
-        CurrentPath.replace(CurrentPath.find(NiggerPath), NiggerPath.length(), "");
-        // Creating Class
+        // Removing Directory.
+        CurrentPath.replace(CurrentPath.find(path), path.length(), "");
+        // Creating Class.
         DirectoryClass NiggaFile;
         NiggaFile.IsObsufucated = false;
-        // For in extensions
+        // For in extensions.
         for (const auto& Item : extensions)
         {
             std::string StringItem = Item;
 
-            // If have extensions
-            if((CurrentPath.find(Item) != std::string::npos) 
+            // If have extensions.
+            if ((CurrentPath.find(Item) != std::string::npos)
                 && !(CurrentPath.find(".user") != std::string::npos)
                 && !(CurrentPath.find(".filters") != std::string::npos)) {
-                // Save Full Name
+                // Save Full Name.
                 NiggaFile.FullName = CurrentPath;
-                // Save extensions
+                // Save extensions.
                 NiggaFile.FileExt = Item;
-                // get temp string
+                // get temp string.
                 std::string TempString = CurrentPath.c_str();
-                // Remove extensions and save file name
+                // Remove extensions and save file name.
                 NiggaFile.FileName = fs::path(CurrentPath).replace_extension().string();
-                
-                // Search Vector
+
+                // Search Vector.
                 if (std::find(FileList.begin(), FileList.end(), NiggaFile) != FileList.end()) { /*Found do nothing*/ }
                 else {
-                    // Insert in vector
+                    // Insert in vector.
                     FileList.insert(FileList.begin(), NiggaFile);
                 }
             }
-        }        
-    } // exit for
-    
-    //File List For
-    for (const auto& File : FileList)
-    {
-        std::cout << File.FullName << std::endl;
-    } // exit for
-
-
-
-
+        }
+    } // exit for.
+    // If size 0 return false
+    // If size bigger 0 return true;
+    return FileList.size() > 0 ? true : false;
 }
