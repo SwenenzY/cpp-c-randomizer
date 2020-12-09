@@ -37,7 +37,7 @@ std::string CreateGuid() {
     return s;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     SetConsoleTitleA("Randomizer []");
     
