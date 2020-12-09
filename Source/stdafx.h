@@ -15,10 +15,11 @@
 #include <fstream>
 #include <ostream>
 
-// User Define
-#include "xorstr.hpp"
-#include "Helpers.h"
-
 // Namespace
 using namespace std;
 namespace fs = std::filesystem;
+
+// User Define
+#include "xorstr.hpp"
+#include "Helpers.h"
+#include "ClassList.h"

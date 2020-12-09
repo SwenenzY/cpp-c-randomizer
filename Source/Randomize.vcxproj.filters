@@ -8,5 +8,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="xorstr.hpp" />
+    <ClInclude Include="ClassList.h" />
   </ItemGroup>
 </Project>
