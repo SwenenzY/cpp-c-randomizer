@@ -4,22 +4,27 @@
 #include <iomanip>
 #include <cstdint>
 
-// STD
-#include <stdio.h>
-#include <string>
-#include <filesystem>
-
 // Stream
 #include <iostream>
 #include <sstream>
 #include <fstream>
 #include <ostream>
 
+// STD
+#include <stdio.h>
+#include <string>
+#include <filesystem>
+
 // Namespace
 using namespace std;
 namespace fs = std::filesystem;
 
 // User Define
-#include "xorstr.hpp"
 #include "Helpers.h"
 #include "ClassList.h"
+
+// I am using CLI systems (I don't usually use it, but I used it for simplicity.)
+#using <System.xml.dll>
+#include <msclr\marshal_cppstd.h> // system::string -> std::string
+using namespace msclr::interop;
+using namespace System::Xml;

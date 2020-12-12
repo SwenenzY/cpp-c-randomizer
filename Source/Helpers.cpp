@@ -21,7 +21,20 @@ std::string Helpers::CreateGuid() {
     os << std::hex << std::setw(2) << std::setfill('0') << static_cast<short>(guid.Data4[6]);
     os << std::hex << std::setw(2) << std::setfill('0') << static_cast<short>(guid.Data4[7]);
 
-    std::string s(os.str());
+    std::string s;
+    s += "{";
+    s += os.str();
+    s += "}";
 
     return s;
+}
+
+void Helpers::replaceAll(std::string& str, const std::string& from, const std::string& to) {
+    if (from.empty())
+        return;
+    size_t start_pos = 0;
+    while ((start_pos = str.find(from, start_pos)) != std::string::npos) {
+        str.replace(start_pos, from.length(), to);
+        start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
+    }
 }
