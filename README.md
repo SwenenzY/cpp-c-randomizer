@@ -12,7 +12,7 @@ Soon;
 
 ### How can i use?
 In this [line](https://github.com/SwenenzY/cpp-c-randomizer/blob/95fc42b589263540c4dbeb16345a015ff5488e68/Source/main.cpp#L52) you can edit file path, make sure it ends with // at the end. Also you can see settings in file you can change settings. 
-
+Example [image](https://imgur.com/sSsvZwT)
 ### Tech
 If you have suggestion and you error please notify me in [issues](https://github.com/SwenenzY/cpp-c-randomizer/issues).
 - Visual Studio 2015+
@@ -23,5 +23,6 @@ License
 
 MIT
 
-**Fun4Cheats.com**
+**[Fun4Cheats.com](https://Fun4Cheats.com)**
+
 **[Mail Me!](mailto:mail@swenenzy.com)**
