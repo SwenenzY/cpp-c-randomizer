@@ -13,3 +13,14 @@ public:
 		else return false;
 	}
 };
+
+class FileClass {
+public:
+	std::string FilePath = "NULL";
+	std::string OrginalName = "NULL";
+	std::string ObfuscateName = "NULL";
+	bool operator==(FileClass d) {
+		if (d.FilePath == this->FilePath) return true;
+		else return false;
+	}
+};

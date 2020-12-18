@@ -1,12 +1,19 @@
-#pragma once 
-#include <Windows.h>
+#pragma once
+// Common Includes
+#include <windows.h>
+#include <iomanip>
+#include <cstdint>
+
+// Stream
 #include <iostream>
+#include <sstream>
+#include <fstream>
+#include <ostream>
 
+// STD
+#include <stdio.h>
+#include <string>
+#include <filesystem>
 
-// C
-
-#include "ctest.h"
-
-// CPP
-
-#include "cpptest.h"
+// Namespace
+using namespace std;

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 // Define liset
 std::vector<DirectoryClass> FileList;
+std::vector<FileClass> ObfuscateList;
 
 // Define extensions
 const char* extensions[] {
@@ -9,16 +10,21 @@ const char* extensions[] {
     ".vcxproj", ".sln" };
 
 /// <summary>
+/// File settings
+/// </summary>
+bool ObfuscateFiles = true;
+
+/// <summary>
 /// Vcxproj settings
 /// </summary>
-bool ObfuscateVcxproj = true;
+bool ObfuscateVcxproj = false;
 bool RandomizeVcxprojGuid = true; // Randomize GUID for vcxproj
 string UserDefinedVcxprojGUID = "{SwZ-GUID}"; // If randomize guid false define this // not prefered
 
 /// <summary>
 /// .sln settings
 /// </summary>
-bool ObfuscateSln = true;
+bool ObfuscateSln = false;
 bool RandomizeSlnGuid = true; // Randomize GUID for vcxproj
 string UserDefinedSlnGUID = "{SwZ-GUID}"; // If randomize guid false define this // not prefered
 string UserDefinedSlnGUID2 = "{SwZ-GUID}"; // If randomize guid false define this // not prefered
@@ -26,6 +32,10 @@ string UserDefinedSlnGUID2 = "{SwZ-GUID}"; // If randomize guid false define thi
 bool GetDocuments(std::string Path);
 void Setup(std::string path, std::string element, std::string newelement);
 void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string newslnguid, std::string newslnguid2);
+void ObfusucateFiles(std::string path);
+
+std::string Obfuscatestart = "O_O";
+std::string Obfuscateend = "o_o";
 
 int main(int argc, char* argv[])
 {
@@ -47,8 +57,12 @@ int main(int argc, char* argv[])
     std::cout << "[-] Randomize Sln Guid = " << RandomizeSlnGuid << std::endl;
     std::cout << "[-] User Defined Sln GUID = " << UserDefinedSlnGUID << std::endl;
     std::cout << "[-] User Defined Sln GUID 2 = " << UserDefinedSlnGUID2 << std::endl;
+    printf("\n");
+    std::cout << "[-] Obfuscate Files = " << ObfuscateFiles << std::endl;
     printf("\n\n");
-
+    Sleep(2500);
+    //if (GetDocuments("C:\\Users\\Administrator\\Desktop\\swz-rust-simple\\SwZ-Internal\\Internal\\")) {
+    //if (GetDocuments("C:\\Users\\Administrator\\Desktop\\swz-rust-premium\\Cheat\\Internal\\")) {
     if (GetDocuments("C:\\Users\\ykaan\\Documents\\GitHub\\cpp-c-randomizer\\Example-Project\\")) {
         //File List For.
         bool CanObsufucateSln = false;
@@ -61,7 +75,7 @@ int main(int argc, char* argv[])
                 restorevcxprojname = File.FullName;
                 CanObsufucateSln = true;
             }
-            if (File.FileExt == ".vcxproj" && ObfuscateVcxproj) {
+            else if (File.FileExt == ".vcxproj" && ObfuscateVcxproj) {
                 
                 try {
                     System::String^ PathString = gcnew System::String(File.FullPath.c_str()); // std::string to system::string
@@ -106,14 +120,29 @@ int main(int argc, char* argv[])
             #pragma endregion
 
             #pragma region .sln
-            if (File.FileExt == ".sln" && ObfuscateSln && CanObsufucateSln) {
+            else if (File.FileExt == ".sln" && ObfuscateSln && CanObsufucateSln) {
                 ParseSolutionFile(File.FullPath, restorevcxprojname, slnGUID, slnGUID2);
             }
             #pragma endregion
+
+            #pragma region C/C++
+            else {
+                if (ObfuscateFiles) {
+                    ObfusucateFiles(File.FullPath);
+                }
+            }
+            #pragma endregion
+
         } // exit for.
         if (!CanObsufucateSln) {
             std::cout << "[-] Could'nt get .sln trying again." << std::endl;
             goto returnfor;
+        }
+        for (const auto& File : ObfuscateList)
+        {
+            std::cout << File.FilePath << std::endl;
+            std::cout << File.ObfuscateName << std::endl;
+            std::cout << File.OrginalName << std::endl;
         }
     }
     else {
@@ -121,6 +150,8 @@ int main(int argc, char* argv[])
         std::cerr << "[-] Unable to find members." << std::endl;
         system("pause");
     }
+
+    return 0;
 }
 
 bool GetDocuments(std::string path) {
@@ -202,7 +233,7 @@ void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string ne
             Helpers::replaceAll(restorestring, "\"", ""); // '"'
             std::cout << "[*] Old Sln Guid   : " << restorestring << std::endl;
             guidold = restorestring;
-        }
+        }   
         if (str.find("SolutionGuid = ") != std::string::npos) {
             std::string restorestring = str.substr(str.find("SolutionGuid = "));
             Helpers::replaceAll(restorestring, "SolutionGuid = ", "");
@@ -221,4 +252,46 @@ void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string ne
     myfile.open(path);
     myfile << tempfile; // re output file
     myfile.close();
+}
+
+void ObfusucateFiles(std::string path) {
+    std::ifstream file(path);
+    std::string str;
+    while (std::getline(file, str))
+    {
+        if (str.find(Obfuscatestart) != std::string::npos && str.find(Obfuscateend) != std::string::npos) {
+
+            // Remove first blank //O_O Test o_o = "MyValue";
+            std::string restorestring = str.substr(str.find(Obfuscatestart)); 
+            //o_o = "MyValue";
+            std::string EndToEnd = restorestring.substr(restorestring.find(Obfuscateend));
+            // remove o_o = "MyValue"; // after O_O Test
+            Helpers::replaceAll(restorestring, EndToEnd, "");
+            // remove O_O // after ' varriable '
+            Helpers::replaceAll(restorestring, Obfuscatestart, ""); 
+            // Search Blank Char
+            if (restorestring.find(" ") != std::string::npos) {
+                // If found replace with ""
+                Helpers::replaceAll(restorestring, " ", "");
+            }
+
+            // Creating Class.
+            FileClass MyFile;
+            // save orginal path
+            MyFile.FilePath = path;
+            // save orginal name
+            MyFile.OrginalName = restorestring;
+            // get random name
+            std::string SecondChar = Helpers::random_string_only_char(3) + Helpers::random_string(12);
+            // save random name 
+            MyFile.ObfuscateName = SecondChar;
+            
+            // Search Vector.
+            if (std::find(ObfuscateList.begin(), ObfuscateList.end(), MyFile) != ObfuscateList.end()) { /*Found do nothing*/ }
+            else {
+                // Insert in vector.
+                ObfuscateList.insert(ObfuscateList.begin(), MyFile);
+            }
+        }
+    }
 }

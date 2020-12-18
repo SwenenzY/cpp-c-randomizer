@@ -38,3 +38,31 @@ void Helpers::replaceAll(std::string& str, const std::string& from, const std::s
         start_pos += to.length(); // In case 'to' contains 'from', like replacing 'x' with 'yx'
     }
 }
+
+std::string Helpers::random_string(std::string::size_type length)
+{
+    string possible_characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    random_device rd;
+    mt19937 engine(rd());
+    uniform_int_distribution<> dist(0, possible_characters.size() - 1);
+    string ret = "";
+    for (int i = 0; i < length; i++) {
+        int random_index = dist(engine); //get index between 0 and possible_characters.size()-1
+        ret += possible_characters[random_index];
+    }
+    return ret;
+}
+
+std::string Helpers::random_string_only_char(std::string::size_type length)
+{
+    string possible_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    random_device rd;
+    mt19937 engine(rd());
+    uniform_int_distribution<> dist(0, possible_characters.size() - 1);
+    string ret = "";
+    for (int i = 0; i < length; i++) {
+        int random_index = dist(engine); //get index between 0 and possible_characters.size()-1
+        ret += possible_characters[random_index];
+    }
+    return ret;
+}

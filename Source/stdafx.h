@@ -3,6 +3,9 @@
 #include <windows.h>
 #include <iomanip>
 #include <cstdint>
+#include <random>
+#include <functional> //for std::function
+#include <algorithm>  //for std::generate_n
 
 // Stream
 #include <iostream>
