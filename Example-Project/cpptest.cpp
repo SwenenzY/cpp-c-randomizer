@@ -2,34 +2,34 @@
 
 float MyClassFloat1 = 1333.f;
 
-void TestVoid1(int TestInt1, std::string TestString1) {
-	std::cout << "TestInt1 : " << TestInt1 << "\n\n";
-	std::cout << "TestString1 : " << TestString1 << "\n\n";
+void eLlV8UWrXhDSvwO(int sckFeJWHdXVBQn4, std::string vmVb12AbaTKduWp) {
+	std::cout << "sckFeJWHdXVBQn4 : " << sckFeJWHdXVBQn4 << "\n\n";
+	std::cout << "vmVb12AbaTKduWp : " << vmVb12AbaTKduWp << "\n\n";
 }
 
-bool TestNamespace::TestNamespaceVoid1(bool TestBool1)
+bool qAPSKmAl19bgenC::EFaVYTc50PL1I2j(bool MutG7cf592wTOYb)
 {
-	return TestBool1;
+	return MutG7cf592wTOYb;
 }
 
-float TestClass::MyClassVoid1(float MyFlaot1)
+float uKyJlAqFoFnq0dg::IXRXXX8zSkTBS50(float rbsii5szSNIeJ4A)
 {
-	if (MyFlaot1 == 3.f)
-		return MyFlaot1;
+	if (rbsii5szSNIeJ4A == 3.f)
+		return rbsii5szSNIeJ4A;
 	return 0.0f;
 }
 
-void TestClass::MyClassVoid2(float MyFloat2)
+void uKyJlAqFoFnq0dg::dyKqlzoiLN9mONI(float vXHO04fW4i7BOZa)
 {
-	MyClassFloat1 = MyFloat2;
+	MyClassFloat1 = vXHO04fW4i7BOZa;
 }
 
-void TestClass::MyClassVoid3()
+void uKyJlAqFoFnq0dg::alFAq67MIGDan6y()
 {
-	TestClass::MyclassVoid4();
+	uKyJlAqFoFnq0dg::UiMpuVI4jWlI6Zo();
 }
 
-void TestClass::MyclassVoid4()
+void uKyJlAqFoFnq0dg::UiMpuVI4jWlI6Zo()
 {
 
 	std::cout << MyClassFloat1 << "\n\n";

@@ -1,10 +1,7 @@
 #include "stdafx.h"
-// Define liset
-std::vector<DirectoryClass> FileList;
-std::vector<FileClass> ObfuscateList;
-std::vector<FolderClass> FolderList;
+
 // Define extensions
-const char* extensions[] {
+const char* extensions[]{
     ".h", ".hpp",
     ".cc", ".c", ".C", ".cpp", ".cxx", ".cp", ".c++",
     ".vcxproj", ".sln" };
@@ -28,21 +25,31 @@ bool RandomizeSlnGuid = true; // Randomize GUID for vcxproj
 string UserDefinedSlnGUID = "{SwZ-GUID}"; // If randomize guid false define this // not prefered
 string UserDefinedSlnGUID2 = "{SwZ-GUID}"; // If randomize guid false define this // not prefered
 
+/// <summary>
+/// Obfuscate Markers
+/// </summary>
+/// type 1 = in all files
+/// type 2 = in only own file
+std::string Obfuscatestart = "O_O"; // type 1
+std::string Obfuscateend = "o_o"; // type 1
+std::string Obfuscatestart1 = "O__O"; // type 2
+std::string Obfuscateend2 = "o__o"; // type 2
+
+// Define list
+std::vector<DirectoryClass> FileList;
+std::vector<FileClass> ObfuscateList;
+std::vector<FolderClass> FolderList;
+
 bool GetDocuments(std::string Path);
 void Setup(std::string path, std::string element, std::string newelement);
 void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string newslnguid, std::string newslnguid2);
 void ObfusucateFiles(std::string path);
 FolderClass FindFile(std::string filepath);
 
-std::string Obfuscatestart = "O_O";
-std::string Obfuscateend = "o_o";
-
-std::string Obfuscatestart1= "O__O";
-std::string Obfuscateend2 = "o__o";
-
-
 int main(int argc, char* argv[])
 {
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
     SetConsoleTitleA("C/C++ Randomizer By SwenenzY :)");
 
     printf("[>] Initialiting...\n");
@@ -64,13 +71,16 @@ int main(int argc, char* argv[])
     printf("\n");
     std::cout << "[-] Obfuscate Files = " << ObfuscateFiles << std::endl;
     printf("\n\n");
-    Sleep(2500);
+    //Sleep(2500);
+
     //if (GetDocuments("C:\\Users\\Administrator\\Desktop\\swz-rust-simple\\SwZ-Internal\\Internal\\")) {
     //if (GetDocuments("C:\\Users\\Administrator\\Desktop\\swz-rust-premium\\Cheat\\Internal\\")) {
     if (GetDocuments("C:\\Users\\ykaan\\Documents\\GitHub\\cpp-c-randomizer\\Example-Project\\")) {
+        
         //File List For.
         bool CanObsufucateSln = false;
         std::string restorevcxprojname;
+
         returnfor:
         for (const auto& File : FileList)
         {
@@ -138,6 +148,7 @@ int main(int argc, char* argv[])
             #pragma endregion
 
         } // exit for.
+
         if (!CanObsufucateSln) {
             std::cout << "[-] Could'nt get .sln trying again." << std::endl;
             goto returnfor;
@@ -201,13 +212,11 @@ int main(int argc, char* argv[])
             for (FolderClass Item : FolderList)
             {
                 // print result
-                std::cout << "\n-------------------------------\n" << Item.FilePath << "\n-------------------------------\n" << Item.TempString << std::endl;
-
+                // std::cout << "\n-------------------------------\n" << Item.FilePath << "\n-------------------------------\n" << Item.TempString << std::endl;
                 // create ofstream
                 ofstream myfile;
                 // open stream
                 myfile.open(Item.FilePath);
-
                 myfile << Item.TempString; // re output file
                 // close stream
                 myfile.close();
@@ -215,6 +224,8 @@ int main(int argc, char* argv[])
         }
 
         #pragma endregion
+        std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+        std::cout << "\n[-] Finished operation in " << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "ms" << std::endl;
     }
     else {
         // Print error and wait for user action.
@@ -332,6 +343,27 @@ void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string ne
     myfile.close();
 }
 
+
+int WordOccurrenceCount(std::string const& str, std::string const& word)
+{
+    int count(0);
+    std::string::size_type word_pos(0);
+    while (word_pos != std::string::npos)
+    {
+        word_pos = str.find(word, word_pos);
+        if (word_pos != std::string::npos)
+        {
+            ++count;
+
+            // start next search after this word 
+            word_pos += word.length();
+        }
+    }
+    // return
+    return count;
+}
+
+
 void ObfusucateFiles(std::string path) {
 
     // set strings to !OnlyInOwnFile
@@ -343,15 +375,18 @@ SearchBack:
     // define ifstream
     std::ifstream file(path);
     // set str 
-    std::string str;
+    std::string str2;
     // set tempfile
     std::string tempfile;
-    while (std::getline(file, str))
+    while (std::getline(file, str2))
     {
+        // set temp string and count
+        std::string str = str2;
+        int searchCount = 0;
+    Back2:
         if (str.find(string1) != std::string::npos && str.find(string2) != std::string::npos) {
 
             // Remove first blank //O_O Test o_o = "MyValue";
-            std::cout << "\n-------------------------------\n" << str  << std::endl;
             std::string restorestring = str.substr(str.find(string1));
             //o_o = "MyValue";
             std::string EndToEnd = restorestring.substr(restorestring.find(string2));
@@ -364,7 +399,6 @@ SearchBack:
                 // If found replace with ""
                 Helpers::replaceAll(restorestring, " ", "");
             }
-            std::cout << restorestring << "\n-------------------------------\n" << std::endl;
             // Creating Class.
             FileClass MyFile;
             // save orginal path
@@ -385,9 +419,28 @@ SearchBack:
                 // Insert in vector.
                 ObfuscateList.insert(ObfuscateList.begin(), MyFile);
             }
+            int type = IsSearched ? 2 : 1;
+            std::cout << "[*] Type "<< type <<" : " << restorestring << std::endl;
+            std::cout << "[*] Type "<< type <<" (New) : " << SecondChar << "\n"<< std::endl;
+
+            // check multiple define
+            int IntVarriable = WordOccurrenceCount(str2, string1);
+            // if have
+            if (IntVarriable > 1)
+            {
+                // if count dont match
+                if (searchCount != IntVarriable) {
+                    // apply count
+                    searchCount++;
+                    // define a define = define ssss define -> define = define ssss define
+                    str = EndToEnd;
+                    // back to serach
+                    goto Back2;
+                }
+            }
         }
         // save to temp file edit in memory
-        tempfile += str + "\n";
+        tempfile += str2 + "\n";
     } // exit while
     // set strings to OnlyInOwnFile
     string1 = Obfuscatestart1;
@@ -405,7 +458,6 @@ SearchBack:
         // Insert in vector.
         FolderList.insert(FolderList.begin(), MyFolder);
     }
-    //Sleep(5000);
 }
 
 FolderClass FindFile(std::string filepath) {

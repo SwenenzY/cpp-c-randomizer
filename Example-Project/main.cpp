@@ -5,15 +5,15 @@
 int main()
 {
 
-    TestVoid1(1, "Hi"); // print 1,2
+    eLlV8UWrXhDSvwO(1, "Hi"); // print 1,2
 
-    std::cout << std::string(TestNamespace::TestNamespaceVoid1(false) ? "true" : "false") << "\n\n"; // test bool element
+    std::cout << std::string(qAPSKmAl19bgenC::EFaVYTc50PL1I2j(false) ? "true" : "false") << "\n\n"; // test bool element
 
-    std::cout << TestClass::MyClassVoid1(3.f) << "\n\n"; // test class element
+    std::cout << uKyJlAqFoFnq0dg::IXRXXX8zSkTBS50(3.f) << "\n\n"; // test class element
 
-    TestClass::MyClassVoid2(1.057f); // test class element private
+    uKyJlAqFoFnq0dg::dyKqlzoiLN9mONI(1.057f); // test class element private
 
-    TestClass::MyClassVoid3(); // print private element
+    uKyJlAqFoFnq0dg::alFAq67MIGDan6y(); // print private element
 
     getchar(); //
 }
