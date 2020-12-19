@@ -360,3 +360,28 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+Build/Example-Project.exe
+Build/Intermediate/.NETFramework,Version=v4.0.AssemblyAttributes.cpp
+Build/Intermediate/Example-Project.exe.recipe
+Build/Intermediate/Example-Project.tlog/CL.command.1.tlog
+Build/Intermediate/Example-Project.tlog/CL.read.1.tlog
+Build/Intermediate/Example-Project.tlog/CL.write.1.tlog
+Build/Intermediate/Example-Project.tlog/Example-Project.lastbuildstate
+Build/Intermediate/Example-Project.tlog/Example-Project.write.1u.tlog
+Build/Intermediate/Example-Project.tlog/link.command.1.tlog
+Build/Intermediate/Example-Project.tlog/link.read.1.tlog
+Build/Intermediate/Example-Project.tlog/link.write.1.tlog
+Build/Intermediate/Example-Project.vcxproj.FileListAbsolute.txt
+Build/Intermediate/Randomize.exe.recipe
+Build/Intermediate/Randomize.tlog/CL.command.1.tlog
+Build/Intermediate/Randomize.tlog/CL.read.1.tlog
+Build/Intermediate/Randomize.tlog/CL.write.1.tlog
+Build/Intermediate/Randomize.tlog/link.command.1.tlog
+Build/Intermediate/Randomize.tlog/link.read.1.tlog
+Build/Intermediate/Randomize.tlog/link.write.1.tlog
+Build/Intermediate/Randomize.tlog/metagen.read.1.tlog
+Build/Intermediate/Randomize.tlog/metagen.write.1.tlog
+Build/Intermediate/Randomize.tlog/Randomize.lastbuildstate
+Build/Intermediate/Randomize.vcxproj.FileListAbsolute.txt
+Build/Randomize.exe
+Build/Randomize.exe.metagen
