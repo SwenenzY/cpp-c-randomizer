@@ -17,3 +17,9 @@
 
 // Namespace
 using namespace std;
+
+// Randomizer Defines
+#define O_O // bool OnlyInOwnFile = false;
+#define o_o // bool OnlyInOwnFile = false;
+#define O__O // bool OnlyInOwnFile = true;
+#define o__o // bool OnlyInOwnFile = true;

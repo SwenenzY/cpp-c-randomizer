@@ -31,6 +31,6 @@ void TestClass::MyClassVoid3()
 
 void TestClass::MyclassVoid4()
 {
-	 
+
 	std::cout << MyClassFloat1 << "\n\n";
 }

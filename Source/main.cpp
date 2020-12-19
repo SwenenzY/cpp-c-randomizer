@@ -13,7 +13,6 @@ const char* extensions[] {
 /// File settings
 /// </summary>
 bool ObfuscateFiles = true;
-
 /// <summary>
 /// Vcxproj settings
 /// </summary>
@@ -37,6 +36,10 @@ FolderClass FindFile(std::string filepath);
 
 std::string Obfuscatestart = "O_O";
 std::string Obfuscateend = "o_o";
+
+std::string Obfuscatestart1= "O__O";
+std::string Obfuscateend2 = "o__o";
+
 
 int main(int argc, char* argv[])
 {
@@ -139,44 +142,85 @@ int main(int argc, char* argv[])
             std::cout << "[-] Could'nt get .sln trying again." << std::endl;
             goto returnfor;
         }
-        // define index
-        static int Index = 0;
-        // define index2
-        static int Index2 = 0;
-        // enter obfuscated list
-        for (const auto& File : ObfuscateList)
-        {
-            // prevent null string
-            if (File.FilePath != "" || File.FilePath != "NULL") {
-                
-                //FolderClass ItemFirst = FindFile(File.FilePath);
-                for (FolderClass Item : FolderList)
-                {
-                    std::string CopyString = FolderList[Index2].TempString;
 
-                    Helpers::replaceAll(CopyString, File.OrginalName, File.ObfuscateName);
+        #pragma region C/C++
 
-                    FolderList[Index2].TempString = CopyString;
-                
-                    Index2++;
+        if(ObfuscateList.size() > 0) {
+            // define index
+            static int Index = 0;
+            // define index2
+            static int Index2 = 0;
+            // enter obfuscated list
+            for (const auto& File : ObfuscateList)
+            {
+                // prevent null string
+                if (File.FilePath != "" || File.FilePath != "NULL") {
+                    // Find File
+                    FolderClass ItemFirst = FindFile(File.FilePath);
+                    // enter folder list
+                    for (FolderClass Item : FolderList)
+                    {
+                        // if is only in own file
+                        if (File.OnlyInOwnFile) {
+                            // match ++
+                            if (Item.FilePath == File.FilePath) {
+                                // match ++
+                                if (Item.FilePath == ItemFirst.FilePath) {
+                                    // copy string for memory
+                                    std::string CopyString = FolderList[Index2].TempString;
+                                    // replace strings 
+                                    Helpers::replaceAll(CopyString, File.OrginalName, File.ObfuscateName);
+                                    // save string
+                                    FolderList[Index2].TempString = CopyString;
+                                    // break
+                                    break;
+                                }
+                            }
+                        }
+                        else {
+                            // copy string for memory
+                            std::string CopyString = FolderList[Index2].TempString;
+                            // replace strings 
+                            Helpers::replaceAll(CopyString, File.OrginalName, File.ObfuscateName);
+                            // save string
+                            FolderList[Index2].TempString = CopyString;
+                        }
+                        // count index 2
+                        Index2++;
+                    }
+                    // find this item in list and set true
+                    ObfuscateList[Index].IsObsufucated = true;
+                    // Count index
+                    Index++;
+                    if (File.OnlyInOwnFile) Index2 = 0;
                 }
-                for (FolderClass Item : FolderList)
-                {
-                    std::cout << Item.TempString << std::endl;
-                }
-                // find this item in list and set true
-                ObfuscateList[Index].IsObsufucated = true;
-                // Count index
-                Index++;
-            }
-        }// exit for
+                // reset index 2
+                Index2 = 0;
+            }// exit for
+            // enter last for
+            for (FolderClass Item : FolderList)
+            {
+                // print result
+                std::cout << "\n-------------------------------\n" << Item.FilePath << "\n-------------------------------\n" << Item.TempString << std::endl;
+
+                // create ofstream
+                ofstream myfile;
+                // open stream
+                myfile.open(Item.FilePath);
+
+                myfile << Item.TempString; // re output file
+                // close stream
+                myfile.close();
+            }//exit for
+        }
+
+        #pragma endregion
     }
     else {
         // Print error and wait for user action.
         std::cerr << "[-] Unable to find members." << std::endl;
         system("pause");
     }
-
     return 0;
 }
 
@@ -289,27 +333,38 @@ void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string ne
 }
 
 void ObfusucateFiles(std::string path) {
+
+    // set strings to !OnlyInOwnFile
+    std::string string1 = Obfuscatestart;
+    std::string string2 = Obfuscateend;
+    // prevent inf loop
+    bool IsSearched = false;
+SearchBack:
+    // define ifstream
     std::ifstream file(path);
+    // set str 
     std::string str;
+    // set tempfile
     std::string tempfile;
     while (std::getline(file, str))
     {
-        if (str.find(Obfuscatestart) != std::string::npos && str.find(Obfuscateend) != std::string::npos) {
+        if (str.find(string1) != std::string::npos && str.find(string2) != std::string::npos) {
 
             // Remove first blank //O_O Test o_o = "MyValue";
-            std::string restorestring = str.substr(str.find(Obfuscatestart)); 
+            std::cout << "\n-------------------------------\n" << str  << std::endl;
+            std::string restorestring = str.substr(str.find(string1));
             //o_o = "MyValue";
-            std::string EndToEnd = restorestring.substr(restorestring.find(Obfuscateend));
+            std::string EndToEnd = restorestring.substr(restorestring.find(string2));
             // remove o_o = "MyValue"; // after O_O Test
             Helpers::replaceAll(restorestring, EndToEnd, "");
             // remove O_O // after ' varriable '
-            Helpers::replaceAll(restorestring, Obfuscatestart, ""); 
+            Helpers::replaceAll(restorestring, string1, "");
             // Search Blank Char
             if (restorestring.find(" ") != std::string::npos) {
                 // If found replace with ""
                 Helpers::replaceAll(restorestring, " ", "");
             }
-
+            std::cout << restorestring << "\n-------------------------------\n" << std::endl;
             // Creating Class.
             FileClass MyFile;
             // save orginal path
@@ -322,6 +377,8 @@ void ObfusucateFiles(std::string path) {
             MyFile.ObfuscateName = SecondChar;
             // save false
             MyFile.IsObsufucated = false;
+            // save bool
+            MyFile.OnlyInOwnFile = IsSearched;
             // Search Vector.
             if (std::find(ObfuscateList.begin(), ObfuscateList.end(), MyFile) != ObfuscateList.end()) { /*Found do nothing*/ }
             else {
@@ -332,7 +389,11 @@ void ObfusucateFiles(std::string path) {
         // save to temp file edit in memory
         tempfile += str + "\n";
     } // exit while
-
+    // set strings to OnlyInOwnFile
+    string1 = Obfuscatestart1;
+    string2 = Obfuscateend2;
+    // go back
+    if (!IsSearched) { IsSearched = true;  goto SearchBack; }
     // creating class
     FolderClass MyFolder;
     // save memory file
@@ -344,6 +405,7 @@ void ObfusucateFiles(std::string path) {
         // Insert in vector.
         FolderList.insert(FolderList.begin(), MyFolder);
     }
+    //Sleep(5000);
 }
 
 FolderClass FindFile(std::string filepath) {

@@ -20,8 +20,9 @@ public:
 	std::string OrginalName = "NULL";
 	std::string ObfuscateName = "NULL";
 	bool IsObsufucated = false;
+	bool OnlyInOwnFile = false;
 	bool operator==(FileClass d) {
-		if (d.FilePath == this->FilePath) return true;
+		if (d.OrginalName == this->OrginalName) return true;
 		else return false;
 	}
 };
