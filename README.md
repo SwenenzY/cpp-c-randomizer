@@ -63,6 +63,7 @@ private:
 };
   ```
 Example [image](https://imgur.com/sSsvZwT)
+
 Example [image2](https://imgur.com/HGj1QcR)
 ### Tech
 If you have suggestion and you error please notify me in [issues](https://github.com/SwenenzY/cpp-c-randomizer/issues).
