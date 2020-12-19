@@ -19,7 +19,19 @@ public:
 	std::string FilePath = "NULL";
 	std::string OrginalName = "NULL";
 	std::string ObfuscateName = "NULL";
+	bool IsObsufucated = false;
 	bool operator==(FileClass d) {
+		if (d.FilePath == this->FilePath) return true;
+		else return false;
+	}
+};
+
+class FolderClass {
+public:
+	std::string TempString = "NULL";
+	std::string FilePath = "NULL";
+	int FileIndex = 0;
+	bool operator==(FolderClass d) {
 		if (d.FilePath == this->FilePath) return true;
 		else return false;
 	}

@@ -2,7 +2,7 @@
 // Define liset
 std::vector<DirectoryClass> FileList;
 std::vector<FileClass> ObfuscateList;
-
+std::vector<FolderClass> FolderList;
 // Define extensions
 const char* extensions[] {
     ".h", ".hpp",
@@ -33,6 +33,7 @@ bool GetDocuments(std::string Path);
 void Setup(std::string path, std::string element, std::string newelement);
 void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string newslnguid, std::string newslnguid2);
 void ObfusucateFiles(std::string path);
+FolderClass FindFile(std::string filepath);
 
 std::string Obfuscatestart = "O_O";
 std::string Obfuscateend = "o_o";
@@ -138,12 +139,43 @@ int main(int argc, char* argv[])
             std::cout << "[-] Could'nt get .sln trying again." << std::endl;
             goto returnfor;
         }
-        for (const auto& File : ObfuscateList)
-        {
-            std::cout << File.FilePath << std::endl;
-            std::cout << File.ObfuscateName << std::endl;
-            std::cout << File.OrginalName << std::endl;
-        }
+        // define index
+        static int Index = 0;
+        // define index2
+        static int Index2 = 0;
+        // enter obfuscated list
+        //for (const auto& File : ObfuscateList)
+        //{
+        //    // prevent null string
+        //    if (File.FilePath != "" || File.FilePath != "NULL") {
+        //        
+        //        FolderClass ItemFirst = FindFile(File.FilePath);
+        //        for (FolderClass Item : FolderList)
+        //        {
+        //            if (ItemFirst.TempString == Item.TempString) {
+
+        //                std::string CopyString = FolderList[Index2].TempString;
+
+        //                Helpers::replaceAll(CopyString, File.OrginalName, File.ObfuscateName);
+
+        //                FolderList[Index2].TempString = CopyString;
+
+        //                break;
+        //            }
+        //            Index2++;
+        //        }
+        //        for (FolderClass Item : FolderList)
+        //        {
+        //            std::cout << Item.TempString << std::endl;
+        //        }
+        //        // find this item in list and set true
+        //        ObfuscateList[Index].IsObsufucated = true;
+        //        // Count index
+        //        Index++;
+        //        // reset second index 
+        //        Index2 = 0;
+        //    }
+        //}// exit for
     }
     else {
         // Print error and wait for user action.
@@ -241,22 +273,31 @@ void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string ne
             guidold2 = restorestring;
         }
         tempfile += str + "\n";
-    }
+    } // exit while
+    // replace first guid to new
     Helpers::replaceAll(tempfile, guidold, newslnguid);
+     
     std::cout << "[*] New Sln Guid   : " << newslnguid << std::endl;
+
+    // replace seconds guid to new
     Helpers::replaceAll(tempfile, guidold2, newslnguid2);
+
     std::cout << "[*] New Sln Guid 2 : " << newslnguid2 << std::endl;
 
-
+    // create ofstream
     ofstream myfile;
+    // open stream
     myfile.open(path);
+
     myfile << tempfile; // re output file
+    // close stream
     myfile.close();
 }
 
 void ObfusucateFiles(std::string path) {
     std::ifstream file(path);
     std::string str;
+    std::string tempfile;
     while (std::getline(file, str))
     {
         if (str.find(Obfuscatestart) != std::string::npos && str.find(Obfuscateend) != std::string::npos) {
@@ -285,7 +326,8 @@ void ObfusucateFiles(std::string path) {
             std::string SecondChar = Helpers::random_string_only_char(3) + Helpers::random_string(12);
             // save random name 
             MyFile.ObfuscateName = SecondChar;
-            
+            // save false
+            MyFile.IsObsufucated = false;
             // Search Vector.
             if (std::find(ObfuscateList.begin(), ObfuscateList.end(), MyFile) != ObfuscateList.end()) { /*Found do nothing*/ }
             else {
@@ -293,5 +335,40 @@ void ObfusucateFiles(std::string path) {
                 ObfuscateList.insert(ObfuscateList.begin(), MyFile);
             }
         }
+        // save to temp file edit in memory
+        tempfile += str + "\n";
+    } // exit while
+
+    // creating class
+    FolderClass MyFolder;
+    // save memory file
+    MyFolder.TempString = tempfile;
+    // set file path
+    MyFolder.FilePath = path;
+    if (std::find(FolderList.begin(), FolderList.end(), MyFolder) != FolderList.end()) { /*Found do nothing*/ }
+    else {
+        // Insert in vector.
+        FolderList.insert(FolderList.begin(), MyFolder);
     }
+}
+
+FolderClass FindFile(std::string filepath) {
+
+    // Enter for in folders
+    for (FolderClass Item : FolderList)
+    {
+        // if match file
+        if (Item.FilePath == filepath) {
+            // return item
+            return Item;
+            // break for
+            break;
+        }
+    } //exit for
+    // if dont match file
+    // return null file
+    FolderClass myclass;
+    std::cout << "Return null" << std::endl;
+    return myclass;
+    
 }
