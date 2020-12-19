@@ -144,38 +144,32 @@ int main(int argc, char* argv[])
         // define index2
         static int Index2 = 0;
         // enter obfuscated list
-        //for (const auto& File : ObfuscateList)
-        //{
-        //    // prevent null string
-        //    if (File.FilePath != "" || File.FilePath != "NULL") {
-        //        
-        //        FolderClass ItemFirst = FindFile(File.FilePath);
-        //        for (FolderClass Item : FolderList)
-        //        {
-        //            if (ItemFirst.TempString == Item.TempString) {
+        for (const auto& File : ObfuscateList)
+        {
+            // prevent null string
+            if (File.FilePath != "" || File.FilePath != "NULL") {
+                
+                //FolderClass ItemFirst = FindFile(File.FilePath);
+                for (FolderClass Item : FolderList)
+                {
+                    std::string CopyString = FolderList[Index2].TempString;
 
-        //                std::string CopyString = FolderList[Index2].TempString;
+                    Helpers::replaceAll(CopyString, File.OrginalName, File.ObfuscateName);
 
-        //                Helpers::replaceAll(CopyString, File.OrginalName, File.ObfuscateName);
-
-        //                FolderList[Index2].TempString = CopyString;
-
-        //                break;
-        //            }
-        //            Index2++;
-        //        }
-        //        for (FolderClass Item : FolderList)
-        //        {
-        //            std::cout << Item.TempString << std::endl;
-        //        }
-        //        // find this item in list and set true
-        //        ObfuscateList[Index].IsObsufucated = true;
-        //        // Count index
-        //        Index++;
-        //        // reset second index 
-        //        Index2 = 0;
-        //    }
-        //}// exit for
+                    FolderList[Index2].TempString = CopyString;
+                
+                    Index2++;
+                }
+                for (FolderClass Item : FolderList)
+                {
+                    std::cout << Item.TempString << std::endl;
+                }
+                // find this item in list and set true
+                ObfuscateList[Index].IsObsufucated = true;
+                // Count index
+                Index++;
+            }
+        }// exit for
     }
     else {
         // Print error and wait for user action.
