@@ -13,14 +13,14 @@ bool ObfuscateFiles = true;
 /// <summary>
 /// Vcxproj settings
 /// </summary>
-bool ObfuscateVcxproj = false;
+bool ObfuscateVcxproj = true;
 bool RandomizeVcxprojGuid = true; // Randomize GUID for vcxproj
 string UserDefinedVcxprojGUID = "{SwZ-GUID}"; // If randomize guid false define this // not prefered
 
 /// <summary>
 /// .sln settings
 /// </summary>
-bool ObfuscateSln = false;
+bool ObfuscateSln = true;
 bool RandomizeSlnGuid = true; // Randomize GUID for vcxproj
 string UserDefinedSlnGUID = "{SwZ-GUID}"; // If randomize guid false define this // not prefered
 string UserDefinedSlnGUID2 = "{SwZ-GUID}"; // If randomize guid false define this // not prefered
@@ -46,6 +46,7 @@ void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string ne
 void ObfusucateFiles(std::string path);
 FolderClass FindFile(std::string filepath);
 
+int TotalObfCount = 0;
 int main(int argc, char* argv[])
 {
     std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
@@ -76,6 +77,7 @@ int main(int argc, char* argv[])
     //if (GetDocuments("C:\\Users\\Administrator\\Desktop\\swz-rust-simple\\SwZ-Internal\\Internal\\")) {
     //if (GetDocuments("C:\\Users\\Administrator\\Desktop\\swz-rust-premium\\Cheat\\Internal\\")) {
     if (GetDocuments("C:\\Users\\ykaan\\Documents\\GitHub\\cpp-c-randomizer\\Example-Project\\")) {
+    //if (GetDocuments("C:\\Users\\ykaan\\Desktop\\Yeni\\legit\\Obftest\\")) {
         
         //File List For.
         bool CanObsufucateSln = false;
@@ -89,7 +91,7 @@ int main(int argc, char* argv[])
                 restorevcxprojname = File.FullName;
                 CanObsufucateSln = true;
             }
-            else if (File.FileExt == ".vcxproj" && ObfuscateVcxproj) {
+            if (File.FileExt == ".vcxproj" && ObfuscateVcxproj) {
                 
                 try {
                     System::String^ PathString = gcnew System::String(File.FullPath.c_str()); // std::string to system::string
@@ -222,7 +224,7 @@ int main(int argc, char* argv[])
                 myfile.close();
             }//exit for
         }
-
+        std::cout << "\n[-] Total obf define : " << TotalObfCount <<"\n\n";
         #pragma endregion
         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
         std::cout << "\n[-] Finished operation in " << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "ms" << std::endl;
@@ -420,9 +422,9 @@ SearchBack:
                 ObfuscateList.insert(ObfuscateList.begin(), MyFile);
             }
             int type = IsSearched ? 2 : 1;
-            std::cout << "[*] Type "<< type <<" : " << restorestring << std::endl;
-            std::cout << "[*] Type "<< type <<" (New) : " << SecondChar << "\n"<< std::endl;
-
+            //std::cout << "[*] Type "<< type <<" : " << restorestring << std::endl;
+            //std::cout << "[*] Type "<< type <<" (New) : " << SecondChar << "\n"<< std::endl;
+            TotalObfCount++;
             // check multiple define
             int IntVarriable = WordOccurrenceCount(str2, string1);
             // if have

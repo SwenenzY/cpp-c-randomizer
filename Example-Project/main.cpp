@@ -5,15 +5,15 @@
 int main()
 {
 
-    eLlV8UWrXhDSvwO(1, "Hi"); // print 1,2
+    HXzdIlzk9tJcohi(1, "Hi"); // print 1,2
 
-    std::cout << std::string(qAPSKmAl19bgenC::EFaVYTc50PL1I2j(false) ? "true" : "false") << "\n\n"; // test bool element
+    std::cout << std::string(TNSdiuSmShSyWhA::JYVkAsDy2eXprxb(false) ? "true" : "false") << "\n\n"; // test bool element
 
-    std::cout << uKyJlAqFoFnq0dg::IXRXXX8zSkTBS50(3.f) << "\n\n"; // test class element
+    std::cout << fHG18N3bkoB0xFf::uSNswZLIsuCiNCI(3.f) << "\n\n"; // test class element
 
-    uKyJlAqFoFnq0dg::dyKqlzoiLN9mONI(1.057f); // test class element private
+    fHG18N3bkoB0xFf::hIiN7qL4hYyVkWH(1.057f); // test class element private
 
-    uKyJlAqFoFnq0dg::alFAq67MIGDan6y(); // print private element
+    fHG18N3bkoB0xFf::iQd5LJxBpy8vZ0X(); // print private element
 
     getchar(); //
 }
