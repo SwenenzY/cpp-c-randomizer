@@ -28,7 +28,7 @@ std::string O_O MyUniqueString o_o = "";
  // Program can detect multiple defines in 1 line 
  // Make sure that variables have a unique name. The program may make mistakes.
 ```
- **Example Input;**
+ ### **Example Input;**
   ```cpp
   void O_O TestVoid1 o_o (int O_O TestInt1 o_o, std::string O_O TestString1 o_o);
 
@@ -45,7 +45,7 @@ private:
 	static void O_O MyclassVoid4 o_o ();
 };
   ```
- **Example Output;**
+ ### **Example Output;**
   ```cpp
  void O_O eLlV8UWrXhDSvwO o_o (int O_O sckFeJWHdXVBQn4 o_o, std::string O_O vmVb12AbaTKduWp o_o);
 
