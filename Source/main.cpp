@@ -6,6 +6,8 @@ const char* extensions[]{
     ".cc", ".c", ".C", ".cpp", ".cxx", ".cp", ".c++",
     ".vcxproj", ".sln" };
 
+const char* blacklist_folders[] { ".vs", "x64", "Release", "Debug" };
+
 /// <summary>
 /// File settings
 /// </summary>
@@ -40,6 +42,7 @@ std::vector<DirectoryClass> FileList;
 std::vector<FileClass> ObfuscateList;
 std::vector<FolderClass> FolderList;
 
+
 bool GetDocuments(std::string Path);
 void Setup(std::string path, std::string element, std::string newelement);
 void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string newslnguid, std::string newslnguid2);
@@ -72,13 +75,10 @@ int main(int argc, char* argv[])
     printf("\n");
     std::cout << "[-] Obfuscate Files = " << ObfuscateFiles << std::endl;
     printf("\n\n");
-    //Sleep(2500);
 
-    //if (GetDocuments("C:\\Users\\Administrator\\Desktop\\swz-rust-simple\\SwZ-Internal\\Internal\\")) {
-    //if (GetDocuments("C:\\Users\\Administrator\\Desktop\\swz-rust-premium\\Cheat\\Internal\\")) {
+    //if (GetDocuments("D:\\Kernel\\")) {
     if (GetDocuments("C:\\Users\\ykaan\\Documents\\GitHub\\cpp-c-randomizer\\Example-Project\\")) {
-    //if (GetDocuments("C:\\Users\\ykaan\\Desktop\\Yeni\\legit\\Obftest\\")) {
-        
+
         //File List For.
         bool CanObsufucateSln = false;
         std::string restorevcxprojname;
@@ -126,8 +126,7 @@ int main(int argc, char* argv[])
                         std::cerr << "[-] Unable to find Project GUID" << std::endl;
                         system("pause");
                     }
-                }
-                catch (exception& e) {
+                } catch (exception& e) {
                     std::cerr << "[-] Unable to read XML " << e.what() << std::endl;
                     system("pause");
                 }
@@ -135,19 +134,10 @@ int main(int argc, char* argv[])
 
             #pragma endregion
 
-            #pragma region .sln
-            else if (File.FileExt == ".sln" && ObfuscateSln && CanObsufucateSln) {
-                ParseSolutionFile(File.FullPath, restorevcxprojname, slnGUID, slnGUID2);
-            }
-            #pragma endregion
-
-            #pragma region C/C++
-            else {
-                if (ObfuscateFiles) {
-                    ObfusucateFiles(File.FullPath);
-                }
-            }
-            #pragma endregion
+            // SLN
+            else if (File.FileExt == ".sln" && ObfuscateSln && CanObsufucateSln)  ParseSolutionFile(File.FullPath, restorevcxprojname, slnGUID, slnGUID2);
+            // C/CPP
+            else if (ObfuscateFiles)  ObfusucateFiles(File.FullPath);
 
         } // exit for.
 
@@ -237,47 +227,82 @@ int main(int argc, char* argv[])
     return 0;
 }
 
+bool is_whitelist_file(std::string file, std::string path) {
+    bool status = false;
+    for (const auto& Item : extensions) {
+        std::string StringItem = file;
+        StringItem.replace(StringItem.find(path), path.length(), "");
+        if ((StringItem.find(Item) != std::string::npos)
+            && !(StringItem.find(".user") != std::string::npos)
+            && !(StringItem.find(".filters") != std::string::npos)) {
+            status = true;
+            break;
+        }
+    } return status;
+}
+
+bool is_whitelist_folder(std::string file, std::string path) {
+    bool status = true;
+    for (const auto& Item : blacklist_folders) {
+        std::string StringItem = file;
+        StringItem.replace(StringItem.find(path), path.length(), "");
+        if ((StringItem.find(Item) != std::string::npos)) { status = false; break; }
+    } return status;
+}
+
+// gen 2.0
 bool GetDocuments(std::string path) {
-    // Get files in path.
-    for (const auto& entry : fs::directory_iterator(path))
+    std::string temp_path = path;
+
+    std::vector<FileClass> file_list;
+    std::vector<FolderClass> folder_list;
+    int folder_index = 0;
+
+find:
+    for (const auto& entry : fs::directory_iterator(temp_path)) {
+        if (std::filesystem::is_directory(entry.path().string()) && is_whitelist_folder(entry.path().string(), temp_path)) {
+
+            FolderClass folder;
+            folder.FilePath = entry.path().string();
+            if (std::find(folder_list.begin(), folder_list.end(), folder) != folder_list.end());
+            else folder_list.insert(folder_list.begin(), folder);
+
+        } else if (is_whitelist_file(entry.path().string(), temp_path)){
+
+            FileClass file;
+            file.OrginalName = entry.path().string();
+            file.ext = entry.path().extension().string();
+            file.FilePath = temp_path;
+            if (std::find(file_list.begin(), file_list.end(), file) != file_list.end());
+            else file_list.insert(file_list.begin(), file);
+
+        }
+    }
+    folder_index == 0;
+    for (const auto& _folder : folder_list)
     {
-        // Get String From Entry.
-        std::string CurrentPath = entry.path().string();
-        // Removing Directory.
-        CurrentPath.replace(CurrentPath.find(path), path.length(), "");
-        // Creating Class.
+        if (!_folder.is_searched) {
+            folder_list[folder_index].is_searched = true;
+            temp_path = _folder.FilePath;
+            goto find;
+        }
+        folder_index++;
+    }
+
+    for (const auto& _file : file_list)
+    {
         DirectoryClass NiggaFile;
         NiggaFile.IsObsufucated = false;
-        // For in extensions.
-        for (const auto& Item : extensions)
-        {
-            std::string StringItem = Item;
+        std::string CurrentPath = _file.OrginalName;
+        CurrentPath.replace(CurrentPath.find(_file.FilePath), _file.FilePath.length(), "");
+        NiggaFile.FullName = CurrentPath;
+        NiggaFile.FileExt = _file.ext;
+        NiggaFile.FullPath = _file.OrginalName;
+        NiggaFile.FileName = fs::path(CurrentPath).replace_extension().string();
+        if (std::find(FileList.begin(), FileList.end(), NiggaFile) != FileList.end());
+        else FileList.insert(FileList.begin(), NiggaFile);
+    }
 
-            // If have extensions.
-            if ((CurrentPath.find(Item) != std::string::npos)
-                && !(CurrentPath.find(".user") != std::string::npos)
-                && !(CurrentPath.find(".filters") != std::string::npos)) {
-                // Save Full Name.
-                NiggaFile.FullName = CurrentPath;
-                // Save extensions.
-                NiggaFile.FileExt = Item;
-                // get temp string.
-                std::string TempString = CurrentPath.c_str();
-                // Remove extensions and save file name.
-                NiggaFile.FileName = fs::path(CurrentPath).replace_extension().string();
-                // Saving Full Path
-                NiggaFile.FullPath = entry.path().string();
-                // Search Vector.
-                if (std::find(FileList.begin(), FileList.end(), NiggaFile) != FileList.end()) { /*Found do nothing*/ }
-                else {
-                    // Insert in vector.
-                    FileList.insert(FileList.begin(), NiggaFile);
-                }
-            }
-        }
-    } // exit for.
-    // If size 0 return false
-    // If size bigger 0 return true;
     return FileList.size() > 0 ? true : false;
 }
 
@@ -285,11 +310,7 @@ void Setup(std::string path, std::string element, std::string newelement) {
     std::ifstream file(path);
     std::string str;
     std::string tempfile;
-    while (std::getline(file, str))
-    {
-        tempfile += str + "\n"; // save file string in temp string
-    
-    }  
+    while (std::getline(file, str)) tempfile += str + "\n"; // save file string in temp string
     Helpers::replaceAll(tempfile, element, newelement); // replace all strings in text
     ofstream myfile; 
     myfile.open(path);
@@ -480,5 +501,4 @@ FolderClass FindFile(std::string filepath) {
     FolderClass myclass;
     std::cout << "Return null" << std::endl;
     return myclass;
-    
 }
