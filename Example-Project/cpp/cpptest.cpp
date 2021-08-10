@@ -1,6 +1,7 @@
 #include "cpptest.h"
 
 float MyClassFloat1 = 1333.f;
+
 void feY5K8sCW0z9fIq(int bFEOZ5Da7sm01Kw, std::string coxvji51DcOoKEq) {
 	std::cout << "bFEOZ5Da7sm01Kw : " << bFEOZ5Da7sm01Kw << "\n\n";
 	std::cout << "coxvji51DcOoKEq : " << coxvji51DcOoKEq << "\n\n";
