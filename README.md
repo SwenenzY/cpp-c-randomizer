@@ -7,6 +7,7 @@ I am a cheat developer, I work on things like reverse engineering. I offer a goo
  - Vcxproject Solution Guid Randomizer
  - Solution File Guid Randomizer
  - Randomize Defined section
+ - Supporting sub folders.
  
 ### How can i use?
 **In project;**
