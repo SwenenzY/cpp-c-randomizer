@@ -2,34 +2,34 @@
 
 float MyClassFloat1 = 1333.f;
 
-void feY5K8sCW0z9fIq(int bFEOZ5Da7sm01Kw, std::string coxvji51DcOoKEq) {
-	std::cout << "bFEOZ5Da7sm01Kw : " << bFEOZ5Da7sm01Kw << "\n\n";
-	std::cout << "coxvji51DcOoKEq : " << coxvji51DcOoKEq << "\n\n";
+void LSXpUbBOJK853NL(int BiiMsW7YN1Qonjh, std::string dZV4drFXTCTwWPI) {
+	std::cout << "BiiMsW7YN1Qonjh : " << BiiMsW7YN1Qonjh << "\n\n";
+	std::cout << "dZV4drFXTCTwWPI : " << dZV4drFXTCTwWPI << "\n\n";
 }
 
-bool PNRVJYIa57l72hY::FYNRcZIJPyRd7aO(bool OINGsokuQtVdSec)
+bool MbYBMoBhvJCkCtB::ZZgFeT6Zmibut0u(bool nOt2pLDjweWpUAn)
 {
-	return OINGsokuQtVdSec;
+	return nOt2pLDjweWpUAn;
 }
 
-float igcKiDCACJWxLwg::gRbhB3errBDsX60(float NSeTYRgAD0fDO0z)
+float aHz3NrAZvhVDcQk::domVdC8WWxDg5ks(float KtIQ3br84NzTZ3g)
 {
-	if (NSeTYRgAD0fDO0z == 3.f)
-		return NSeTYRgAD0fDO0z;
+	if (KtIQ3br84NzTZ3g == 3.f)
+		return KtIQ3br84NzTZ3g;
 	return 0.0f;
 }
 
-void igcKiDCACJWxLwg::DjbrOR32hu5aNmt(float ehGGxvxxJ8IKh3V)
+void aHz3NrAZvhVDcQk::Iqm5IA5H8FPePsW(float UwdozRO71IRJ4T0)
 {
-	MyClassFloat1 = ehGGxvxxJ8IKh3V;
+	MyClassFloat1 = UwdozRO71IRJ4T0;
 }
 
-void igcKiDCACJWxLwg::beYuJB7X1iYjeXx()
+void aHz3NrAZvhVDcQk::wNig3kshhZhRqZt()
 {
-	igcKiDCACJWxLwg::jkP75OMpZj6AL83();
+	aHz3NrAZvhVDcQk::bxa5bH0JQ98xLlO();
 }
 
-void igcKiDCACJWxLwg::jkP75OMpZj6AL83()
+void aHz3NrAZvhVDcQk::bxa5bH0JQ98xLlO()
 {
 
 	std::cout << MyClassFloat1 << "\n\n";

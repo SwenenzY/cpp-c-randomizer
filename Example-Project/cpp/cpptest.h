@@ -1,17 +1,17 @@
 #pragma once
 #include "stdafx.h"
 
-void O_O feY5K8sCW0z9fIq o_o (int O_O bFEOZ5Da7sm01Kw o_o, std::string O_O coxvji51DcOoKEq o_o);
+void O_O LSXpUbBOJK853NL o_o (int O_O BiiMsW7YN1Qonjh o_o, std::string O_O dZV4drFXTCTwWPI o_o);
 
-namespace O_O PNRVJYIa57l72hY o_o {
-	bool O_O FYNRcZIJPyRd7aO o_o (bool O_O OINGsokuQtVdSec o_o);
+namespace O_O MbYBMoBhvJCkCtB o_o {
+	bool O_O ZZgFeT6Zmibut0u o_o (bool O_O nOt2pLDjweWpUAn o_o);
 }
 
-class O_O igcKiDCACJWxLwg o_o {
+class O_O aHz3NrAZvhVDcQk o_o {
 public:
-	static float O_O gRbhB3errBDsX60 o_o (float O_O NSeTYRgAD0fDO0z o_o = 3.f);
-	static void  O_O DjbrOR32hu5aNmt o_o (float O_O ehGGxvxxJ8IKh3V o_o);
-	static void  O_O beYuJB7X1iYjeXx o_o ();
+	static float O_O domVdC8WWxDg5ks o_o (float O_O KtIQ3br84NzTZ3g o_o = 3.f);
+	static void  O_O Iqm5IA5H8FPePsW o_o (float O_O UwdozRO71IRJ4T0 o_o);
+	static void  O_O wNig3kshhZhRqZt o_o ();
 private:
-	static void O_O jkP75OMpZj6AL83 o_o ();
+	static void O_O bxa5bH0JQ98xLlO o_o ();
 };

@@ -6,7 +6,7 @@ const char* extensions[]{
     ".cc", ".c", ".C", ".cpp", ".cxx", ".cp", ".c++",
     ".vcxproj", ".sln" };
 
-const char* blacklist_folders[] { ".vs", "x64", "Release", "Debug" };
+const char* blacklist_folders[] { ".vs", "x64", "Release", "Debug", "lib", "wdk" };
 
 /// <summary>
 /// File settings
@@ -76,8 +76,8 @@ int main(int argc, char* argv[])
     std::cout << "[-] Obfuscate Files = " << ObfuscateFiles << std::endl;
     printf("\n\n");
 
-    //if (GetDocuments("D:\\Kernel\\")) {
-    if (GetDocuments("C:\\Users\\ykaan\\Documents\\GitHub\\cpp-c-randomizer\\Example-Project\\")) {
+    if (GetDocuments("D:\\Kernel\\")) {
+    //if (GetDocuments("C:\\Users\\ykaan\\Documents\\GitHub\\cpp-c-randomizer\\Example-Project\\")) {
 
         //File List For.
         bool CanObsufucateSln = false;
