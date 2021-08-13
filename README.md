@@ -87,6 +87,14 @@ Example [image](https://imgur.com/sSsvZwT)
 Example [image2](https://imgur.com/HGj1QcR)
 
 Example [image3](https://raw.githubusercontent.com/SwenenzY/cpp-c-randomizer/main/support_int_hex_string.png)
+
+![Run](https://imgur.com/sSsvZwT)
+![Run](https://imgur.com/HGj1QcR)
+![Run](https://raw.githubusercontent.com/SwenenzY/cpp-c-randomizer/main/support_int_hex_string.png)
+
+
+
+
 ### Tech
 If you have suggestion and you error please notify me in [issues](https://github.com/SwenenzY/cpp-c-randomizer/issues).
 - Visual Studio 2015+
