@@ -82,14 +82,8 @@ private:
 	static void O_O UiMpuVI4jWlI6Zo o_o ();
 };
   ```
-Example [image](https://imgur.com/sSsvZwT)
-
-Example [image2](https://imgur.com/HGj1QcR)
-
-Example [image3](https://raw.githubusercontent.com/SwenenzY/cpp-c-randomizer/main/support_int_hex_string.png)
-
-![Run](https://imgur.com/sSsvZwT)
-![Run](https://imgur.com/HGj1QcR)
+![Run](https://raw.imgur.com/sSsvZwT)
+![Run](https://raw.imgur.com/HGj1QcR)
 ![Run](https://raw.githubusercontent.com/SwenenzY/cpp-c-randomizer/main/support_int_hex_string.png)
 
 
