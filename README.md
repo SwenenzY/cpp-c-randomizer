@@ -8,6 +8,10 @@ I am a cheat developer, I work on things like reverse engineering. I offer a goo
  - Solution File Guid Randomizer
  - Randomize Defined section
  - Supporting sub folders.
+ - Hex Obfuscation.
+ - Int Obfuscation.
+ - String Obfuscation.
+
  
 ### How can i use?
 **In project;**
@@ -28,6 +32,21 @@ std::string O_O MyUniqueString o_o = "";
              Start              End
  // Program can detect multiple defines in 1 line 
  // Make sure that variables have a unique name. The program may make mistakes.
+ 
+// all type 2
+// all size 6
+#define X_X --> Hex Start
+#define x_x --> Hex End
+#define D_D --> Int Start
+#define d_d --> Int End
+#define S_S --> String Start
+#define s_s --> String End
+
+constexpr auto hex_var = X_X 0x173ca x_x;
+             		  ^            ^
+             		  |            |
+             	        Start         End
+ 
 ```
  ### **Example Input;**
   ```cpp
@@ -66,6 +85,8 @@ private:
 Example [image](https://imgur.com/sSsvZwT)
 
 Example [image2](https://imgur.com/HGj1QcR)
+
+Example [image3](https://raw.githubusercontent.com/SwenenzY/cpp-c-randomizer/main/support_int_hex_string.png)
 ### Tech
 If you have suggestion and you error please notify me in [issues](https://github.com/SwenenzY/cpp-c-randomizer/issues).
 - Visual Studio 2015+
