@@ -37,6 +37,15 @@ std::string Obfuscateend = "o_o"; // type 1
 std::string Obfuscatestart1 = "O__O"; // type 2
 std::string Obfuscateend2 = "o__o"; // type 2
 
+std::string hex_obf_start = "X_X"; // like a hex
+std::string hex_obf_end = "x_x";
+
+std::string int_obf_start = "D_D"; // like a dec.
+std::string int_obf_end = "d_d";
+
+std::string string_obf_start = "S_S";
+std::string string_obf_end = "s_s";
+
 // Define list
 std::vector<DirectoryClass> FileList;
 std::vector<FileClass> ObfuscateList;
@@ -76,8 +85,8 @@ int main(int argc, char* argv[])
     std::cout << "[-] Obfuscate Files = " << ObfuscateFiles << std::endl;
     printf("\n\n");
 
-    if (GetDocuments("D:\\Kernel\\")) {
-    //if (GetDocuments("C:\\Users\\ykaan\\Documents\\GitHub\\cpp-c-randomizer\\Example-Project\\")) {
+    //if (GetDocuments("D:\\Kernel\\")) {
+    if (GetDocuments("C:\\Users\\ykaan\\Documents\\GitHub\\cpp-c-randomizer\\Example-Project\\")) {
 
         //File List For.
         bool CanObsufucateSln = false;
@@ -181,12 +190,25 @@ int main(int argc, char* argv[])
                             }
                         }
                         else {
-                            // copy string for memory
-                            std::string CopyString = FolderList[Index2].TempString;
-                            // replace strings 
-                            Helpers::replaceAll(CopyString, File.OrginalName, File.ObfuscateName);
-                            // save string
-                            FolderList[Index2].TempString = CopyString;
+                            if (File.is_int || File.is_hex || File.is_string) {
+                                if (Item.FilePath == ItemFirst.FilePath) {
+                                    // copy string for memory
+                                    std::string CopyString = FolderList[Index2].TempString;
+                                    // replace strings 
+                                    Helpers::replaceAll(CopyString, File.OrginalName, File.ObfuscateName);
+                                    // save string
+                                    FolderList[Index2].TempString = CopyString;
+                                    // break
+                                    break;
+                                }
+                            } else {
+                                // copy string for memory
+                                std::string CopyString = FolderList[Index2].TempString;
+                                // replace strings 
+                                Helpers::replaceAll(CopyString, File.OrginalName, File.ObfuscateName);
+                                // save string
+                                FolderList[Index2].TempString = CopyString;
+                            }
                         }
                         // count index 2
                         Index2++;
@@ -366,7 +388,6 @@ void ParseSolutionFile(std::string path, std::string vcxprojfile, std::string ne
     myfile.close();
 }
 
-
 int WordOccurrenceCount(std::string const& str, std::string const& word)
 {
     int count(0);
@@ -386,14 +407,14 @@ int WordOccurrenceCount(std::string const& str, std::string const& word)
     return count;
 }
 
-
 void ObfusucateFiles(std::string path) {
+
+    // prevent inf loop
+    int search_index = 0;
 
     // set strings to !OnlyInOwnFile
     std::string string1 = Obfuscatestart;
     std::string string2 = Obfuscateend;
-    // prevent inf loop
-    bool IsSearched = false;
 SearchBack:
     // define ifstream
     std::ifstream file(path);
@@ -408,7 +429,6 @@ SearchBack:
         int searchCount = 0;
     Back2:
         if (str.find(string1) != std::string::npos && str.find(string2) != std::string::npos) {
-
             // Remove first blank //O_O Test o_o = "MyValue";
             std::string restorestring = str.substr(str.find(string1));
             //o_o = "MyValue";
@@ -428,23 +448,48 @@ SearchBack:
             MyFile.FilePath = path;
             // save orginal name
             MyFile.OrginalName = restorestring;
-            // get random name
-            std::string SecondChar = Helpers::random_string_only_char(3) + Helpers::random_string(12);
-            // save random name 
-            MyFile.ObfuscateName = SecondChar;
+
+            if (search_index == 2) { // int
+                 // get random name
+                std::string SecondChar = Helpers::random_int(5);
+                // save random name 
+                MyFile.ObfuscateName = SecondChar;
+            }
+            else if (search_index == 3) { // hex
+                 // get random name
+                std::string SecondChar = "0x" + Helpers::random_hex(5);
+                // save random name 
+                MyFile.ObfuscateName = SecondChar;
+            }
+            else if (search_index == 4) { // string
+                // get random name
+                std::string SecondChar = "\"" + Helpers::random_string_only_char(1) + Helpers::random_hex(5) + "\"";
+                // save random name 
+                MyFile.ObfuscateName = SecondChar;
+            }
+            else {
+                // get random name
+                std::string SecondChar = Helpers::random_string_only_char(3) + Helpers::random_string(12);
+                // save random name 
+                MyFile.ObfuscateName = SecondChar;
+            }
+
             // save false
             MyFile.IsObsufucated = false;
+            // save as int
+            MyFile.is_int = search_index == 2;
+            // save as hex
+            MyFile.is_hex = search_index == 3;
+            // save as string
+            MyFile.is_string = search_index == 4;
             // save bool
-            MyFile.OnlyInOwnFile = IsSearched;
+            MyFile.OnlyInOwnFile = search_index == 1;
             // Search Vector.
             if (std::find(ObfuscateList.begin(), ObfuscateList.end(), MyFile) != ObfuscateList.end()) { /*Found do nothing*/ }
             else {
                 // Insert in vector.
                 ObfuscateList.insert(ObfuscateList.begin(), MyFile);
             }
-            int type = IsSearched ? 2 : 1;
-            //std::cout << "[*] Type "<< type <<" : " << restorestring << std::endl;
-            //std::cout << "[*] Type "<< type <<" (New) : " << SecondChar << "\n"<< std::endl;
             TotalObfCount++;
             // check multiple define
             int IntVarriable = WordOccurrenceCount(str2, string1);
@@ -465,11 +510,29 @@ SearchBack:
         // save to temp file edit in memory
         tempfile += str2 + "\n";
     } // exit while
-    // set strings to OnlyInOwnFile
-    string1 = Obfuscatestart1;
-    string2 = Obfuscateend2;
+    search_index++;
     // go back
-    if (!IsSearched) { IsSearched = true;  goto SearchBack; }
+    if (search_index == 1) { 
+        // set strings to OnlyInOwnFile
+        string1 = Obfuscatestart1;
+        string2 = Obfuscateend2;
+        goto SearchBack; // return with 1
+    }
+    if (search_index == 2) {
+        string1 = int_obf_start;
+        string2 = int_obf_end;
+        goto SearchBack; // return with 2
+    }
+    if (search_index == 3) {
+        string1 = hex_obf_start;
+        string2 = hex_obf_end;
+        goto SearchBack; // return with 3
+    }
+    if (search_index == 4) {
+        string1 = string_obf_start;
+        string2 = string_obf_end;
+        goto SearchBack; // return with 3
+    }
     // creating class
     FolderClass MyFolder;
     // save memory file

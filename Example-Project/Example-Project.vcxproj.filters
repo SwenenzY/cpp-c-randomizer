@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{81bb20b9-2a9a-4405-8cc2-e1d51d17cd1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp">
+      <UniqueIdentifier>{f834e2be-f8b4-4f17-9bda-b030c45a0b03}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -15,13 +23,5 @@
     <ClInclude Include="cpp\cpptest.h">
       <Filter>cpp</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Source">
-      <UniqueIdentifier>{81bb20b9-2a9a-4405-8cc2-e1d51d17cd1f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cpp">
-      <UniqueIdentifier>{f834e2be-f8b4-4f17-9bda-b030c45a0b03}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
 </Project>

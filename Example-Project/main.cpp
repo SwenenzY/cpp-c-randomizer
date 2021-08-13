@@ -1,19 +1,31 @@
 #include "stdafx.h"
 
 // CPP
-#include "cpptest.h"
+#include "cpp/cpptest.h"
+
 int main()
 {
+    constexpr auto hex_var = X_X 0x173ca x_x;
+    
+    printf("0x%X\n\n", hex_var);
 
-    LSXpUbBOJK853NL(1, "Hi"); // print 1,2
+    constexpr auto int_var = D_D 55195 d_d;
 
-    std::cout << std::string(MbYBMoBhvJCkCtB::ZZgFeT6Zmibut0u(false) ? "true" : "false") << "\n\n"; // test bool element
+    printf("%d\n\n", int_var);
 
-    std::cout << aHz3NrAZvhVDcQk::domVdC8WWxDg5ks(3.f) << "\n\n"; // test class element
+    constexpr auto string_var = S_S "oB24DC" s_s;
 
-    aHz3NrAZvhVDcQk::Iqm5IA5H8FPePsW(1.057f); // test class element private
+    printf("%s\n\n", string_var);
 
-    aHz3NrAZvhVDcQk::wNig3kshhZhRqZt(); // print private element
+    jpaOdDC7cQ3Zrzp(1, "Hi"); // print 1,2
+
+    std::cout << std::string(jiOVswvHTWLqLeK::aXNQtzmE850Yigt(false) ? "true" : "false") << "\n\n"; // test bool element
+
+    std::cout << uFlrjULdi2qdRju::FixJohUaTbnKr0K(3.f) << "\n\n"; // test class element
+
+    uFlrjULdi2qdRju::iyn9Jz1aj9EB7e2(1.057f); // test class element private
+
+    uFlrjULdi2qdRju::TuOxwVUAwbf7oBA(); // print private element
 
     getchar(); //
 }

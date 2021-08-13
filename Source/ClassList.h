@@ -20,6 +20,9 @@ public:
 	std::string OrginalName = "NULL";
 	std::string ObfuscateName = "NULL";
 	bool IsObsufucated = false;
+	bool is_int = false;
+	bool is_hex = false;
+	bool is_string = false;
 	bool OnlyInOwnFile = false;
 
 	std::string ext = "NULL";

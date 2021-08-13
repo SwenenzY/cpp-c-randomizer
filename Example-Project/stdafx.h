@@ -23,3 +23,11 @@ using namespace std;
 #define o_o // bool OnlyInOwnFile = false;
 #define O__O // bool OnlyInOwnFile = true;
 #define o__o // bool OnlyInOwnFile = true;
+
+
+#define X_X
+#define x_x
+#define D_D
+#define d_d
+#define S_S
+#define s_s
