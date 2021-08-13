@@ -82,9 +82,11 @@ private:
 	static void O_O UiMpuVI4jWlI6Zo o_o ();
 };
   ```
-![Run](https://raw.imgur.com/sSsvZwT)
-![Run](https://raw.imgur.com/HGj1QcR)
-![Run](https://raw.githubusercontent.com/SwenenzY/cpp-c-randomizer/main/support_int_hex_string.png)
+  
+ ### **Images;**
+![Run1](https://i.imgur.com/sSsvZwT.png)
+![Run2](https://i.imgur.com/HGj1QcR.png)
+![Run3](https://raw.githubusercontent.com/SwenenzY/cpp-c-randomizer/main/support_int_hex_string.png)
 
 
 
